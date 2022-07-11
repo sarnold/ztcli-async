@@ -1,88 +1,16 @@
 # coding: utf-8
+"""Get data from local ZT node API and dump to endpoint-named files."""
 
-"""Get data from local ZT node API."""
-import json
-import platform
+import os
 
 import asyncio
 import aiohttp
 
-from ztcli_api import ZeroTier
-from ztcli_api import ZeroTierConnectionError as ZeroTierConnectionError
+from ztcli_api import ZeroTier, ZeroTierConnectionError
+from ztcli_api.utils import pprint, get_token, json_dump_file, json_load_file, dump_json, load_json
 
 
-verbose = True
-data_dir = '/tmp/fpn_data'
-
-def get_filepath():
-    """Get filepath according to OS"""
-    if platform.system() == "Linux":
-        return "/var/lib/zerotier-one"
-    elif platform.system() == "Darwin":
-        return "/Library/Application Support/ZeroTier/One"
-    elif platform.system() == "FreeBSD" or platform.system() == "OpenBSD":
-        return "/var/db/zerotier-one"
-    elif platform.system() == "Windows":
-        return "C:\ProgramData\ZeroTier\One"
-
-
-def get_token():
-    """Get authentication token (requires root or user acl)"""
-    with open(get_filepath()+"/authtoken.secret") as file:
-        auth_token = file.read()
-    return auth_token
-
-
-def json_dump_file(endpoint, data, dirname=None):
-    import os
-    import json
-
-    def opener(dirname, flags):
-        return os.open(dirname, flags, mode=0o644, dir_fd=dir_fd)
-
-    if dirname:
-        dir_fd = os.open(dirname, os.O_RDONLY)
-    else:
-        opener = None
-
-    with open(endpoint + '.json', 'w', opener=opener) as fp:
-        json.dump(data, fp)
-    print('{} data in {}.json'.format(endpoint, endpoint))
-
-
-def json_load_file(endpoint, dirname=None):
-    import os
-    import json
-
-    def opener(dirname, flags):
-        return os.open(dirname, flags, dir_fd=dir_fd)
-
-    if dirname:
-        dir_fd = os.open(dirname, os.O_RDONLY)
-    else:
-        opener = None
-
-    with open(endpoint + '.json', 'r', opener=opener) as fp:
-        data = json.load(fp)
-    print('{} data read from {}.json'.format(endpoint, endpoint))
-    return data
-
-
-def pprint(obj):
-    print(json.dumps(obj, indent=2, separators=(',', ': ')))
-
-
-def dump_json(endpoint, data):
-    with open(endpoint + '.json', 'w') as fp:
-        json.dump(data, fp)
-    print('{} data in {}.json'.format(endpoint, endpoint))
-
-
-def load_json(endpoint):
-    with open(endpoint + '.json', 'r') as fp:
-        data = json.load(fp)
-    print('{} data read from {}.json'.format(endpoint, endpoint))
-    return data
+VERBOSE = os.getenv('VERBOSE', default='1')
 
 
 async def main():
@@ -94,29 +22,27 @@ async def main():
         try:
             # get status details of the local node
             await client.get_data('status')
-            # dump_json('status', client.data)
             json_dump_file('status', client.data)
             status_data = json_load_file('status')
-            if verbose:
+            if VERBOSE:
                 pprint(status_data)
 
             # get status details of the node peers
             await client.get_data('peer')
             dump_json('peer', client.data)
             peer_data = load_json('peer')
-            if verbose:
+            if VERBOSE:
                 pprint(peer_data)
 
             # get/display all available network data
             await client.get_data('network')
             dump_json('network', client.data)
             net_data = load_json('network')
-            if verbose:
+            if VERBOSE:
                 pprint(net_data)
 
         except ZeroTierConnectionError as exc:
             print(str(exc))
-            pass
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())

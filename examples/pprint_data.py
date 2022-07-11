@@ -1,37 +1,11 @@
 # coding: utf-8
-
-"""Get data from local ZT node API."""
-import json
-import platform
+"""Get data from local ZT node API, print formatted output."""
 
 import asyncio
 import aiohttp
 
-from ztcli_api import ZeroTier
-from ztcli_api import ZeroTierConnectionError as ZeroTierConnectionError
-
-
-def get_filepath():
-    """Get filepath according to OS"""
-    if platform.system() == "Linux":
-        return "/var/lib/zerotier-one"
-    elif platform.system() == "Darwin":
-        return "/Library/Application Support/ZeroTier/One"
-    elif platform.system() == "FreeBSD" or platform.system() == "OpenBSD":
-        return "/var/db/zerotier-one"
-    elif platform.system() == "Windows":
-        return "C:\ProgramData\ZeroTier\One"
-
-
-def get_token():
-    """Get authentication token (requires root or user acl)"""
-    with open(get_filepath()+"/authtoken.secret") as file:
-        auth_token = file.read()
-    return auth_token
-
-
-def pprint(obj):
-    print(json.dumps(obj, indent=2, separators=(',', ': ')))
+from ztcli_api import ZeroTier, ZeroTierConnectionError
+from ztcli_api.utils import pprint, get_token
 
 
 async def main():
@@ -65,13 +39,12 @@ async def main():
 
                 # Set a toggle for an existing network
                 await client.set_value({'allowGlobal': True},
-                                        'network/{}'.format(my_id))
+                                       'network/{}'.format(my_id))
                 await client.get_data('network/{}'.format(my_id))
                 print(network.get('allowGlobal'))
 
         except ZeroTierConnectionError as exc:
             print(str(exc))
-            pass
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())

@@ -7,10 +7,6 @@ import asyncio
 import aiohttp
 import async_timeout
 
-from .exceptions import ZeroTierError
-from .exceptions import ZeroTierConnectionError
-from .exceptions import ZeroTierNoDataAvailable
-
 
 __all__ = [
     'WRITABLE_NETWORK',
@@ -52,6 +48,18 @@ WRITABLE_NODE = [
 ]
 
 
+class ZeroTierError(Exception):
+    """General ZeroTierError exception occurred."""
+
+
+class ZeroTierConnectionError(ZeroTierError):
+    """Raise when a connection error is encountered."""
+
+
+class ZeroTierNoDataAvailable(ZeroTierError):
+    """Raise when no data is available."""
+
+
 class ZeroTier:
     """
     Async class to create a ZeroTier-cli connection object to get, set,
@@ -59,18 +67,18 @@ class ZeroTier:
     are exported.
     """
 
-    def __init__(self, api_token, loop, session, host='localhost', port=9993):
+    def __init__(self, api_token, loop, session, port=9993):
         """Initialize the connection."""
         self._loop = loop
         self._session = session
         self.headers = {'X-ZT1-Auth': api_token}
         self.data = None
-        self.url = f'{host}:{port}'
+        self.url = f'localhost:{port}'
 
     async def get_data(self, endpoint):
         """Send a GET request to JSON API ``endpoint``."""
         try:
-            with async_timeout.timeout(5, loop=self._loop):
+            with async_timeout.timeout(5):
                 response = await self._session.get(
                     f'http://{self.url}/{endpoint}',
                     headers=self.headers)
@@ -86,7 +94,7 @@ class ZeroTier:
         payload = json.dumps(cfg_dict, separators=(',', ':'))
         logging.debug("Using payload: %s", payload)
         try:
-            with async_timeout.timeout(5, loop=self._loop):
+            with async_timeout.timeout(5):
                 response = await self._session.post(
                     f'http://{self.url}/{endpoint}',
                     headers=self.headers, data=payload)
@@ -100,7 +108,7 @@ class ZeroTier:
     async def delete_thing(self, endpoint):
         """Send a DELETE request to JSON API ``endpoint``."""
         try:
-            with async_timeout.timeout(5, loop=self._loop):
+            with async_timeout.timeout(5,):
                 response = await self._session.delete(
                     f'http://{self.url}/{endpoint}',
                     headers=self.headers)
