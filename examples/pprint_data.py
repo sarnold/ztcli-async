@@ -56,18 +56,18 @@ async def main():
             await client.get_data('network')
             print('Networks found:')
             pprint(client.data)
-            # for network in client.data:
-                # my_id = network.get('id')
-                # print(my_id)
-                # # Get details about each network
-                # await client.get_data('network/{}'.format(my_id))
-                # pprint(client.data)
+            for network in client.data:
+                my_id = network.get('id')
+                print(my_id)
+                # Get details about each network
+                await client.get_data('network/{}'.format(my_id))
+                pprint(client.data)
 
-                # # Set a toggle for an existing network
-                # await client.set_value({'allowGlobal': True},
-                                        # 'network/{}'.format(my_id))
-                # await client.get_data('network/{}'.format(my_id))
-                # print(network.get('allowGlobal'))
+                # Set a toggle for an existing network
+                await client.set_value({'allowGlobal': True},
+                                        'network/{}'.format(my_id))
+                await client.get_data('network/{}'.format(my_id))
+                print(network.get('allowGlobal'))
 
         except ZeroTierConnectionError as exc:
             print(str(exc))

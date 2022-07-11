@@ -12,7 +12,7 @@ from ztcli_api import ZeroTierConnectionError as ZeroTierConnectionError
 
 
 verbose = True
-
+data_dir = '/tmp/fpn_data'
 
 def get_filepath():
     """Get filepath according to OS"""
@@ -31,6 +31,41 @@ def get_token():
     with open(get_filepath()+"/authtoken.secret") as file:
         auth_token = file.read()
     return auth_token
+
+
+def json_dump_file(endpoint, data, dirname=None):
+    import os
+    import json
+
+    def opener(dirname, flags):
+        return os.open(dirname, flags, mode=0o644, dir_fd=dir_fd)
+
+    if dirname:
+        dir_fd = os.open(dirname, os.O_RDONLY)
+    else:
+        opener = None
+
+    with open(endpoint + '.json', 'w', opener=opener) as fp:
+        json.dump(data, fp)
+    print('{} data in {}.json'.format(endpoint, endpoint))
+
+
+def json_load_file(endpoint, dirname=None):
+    import os
+    import json
+
+    def opener(dirname, flags):
+        return os.open(dirname, flags, dir_fd=dir_fd)
+
+    if dirname:
+        dir_fd = os.open(dirname, os.O_RDONLY)
+    else:
+        opener = None
+
+    with open(endpoint + '.json', 'r', opener=opener) as fp:
+        data = json.load(fp)
+    print('{} data read from {}.json'.format(endpoint, endpoint))
+    return data
 
 
 def pprint(obj):
@@ -59,8 +94,9 @@ async def main():
         try:
             # get status details of the local node
             await client.get_data('status')
-            dump_json('status', client.data)
-            status_data = load_json('status')
+            # dump_json('status', client.data)
+            json_dump_file('status', client.data)
+            status_data = json_load_file('status')
             if verbose:
                 pprint(status_data)
 
