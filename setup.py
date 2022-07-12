@@ -30,6 +30,7 @@ setup(
     license='MIT',
     description='Python async wrapper for the local ZT node API interface.',
     long_description=read_file('README.rst'),
+    long_description_content_type='text/x-rst',
     url='https://github.com/freepn/ztcli-async',
     author='Stephen L Arnold',
     author_email='nerdboy@gentoo.org',

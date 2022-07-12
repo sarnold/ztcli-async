@@ -1,12 +1,11 @@
 # coding: utf-8
 """A Python async client wrapper for the zerotier-cli node API."""
+import asyncio
 import json
 import logging
-import asyncio
 
 import aiohttp
 import async_timeout
-
 
 __all__ = [
     'WRITABLE_NETWORK',
@@ -25,7 +24,7 @@ WRITABLE_NETWORK = [
     'v4AssignMode',
     'v6AssignMode',
     'mtu',
-    'multicastLimit'
+    'multicastLimit',
     'routes',
     'ipAssignmentPools',
     'rules',
@@ -108,7 +107,7 @@ class ZeroTier:
     async def delete_thing(self, endpoint):
         """Send a DELETE request to JSON API ``endpoint``."""
         try:
-            with async_timeout.timeout(5,):
+            with async_timeout.timeout(5):
                 response = await self._session.delete(
                     f'http://{self.url}/{endpoint}',
                     headers=self.headers)
