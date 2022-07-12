@@ -27,8 +27,10 @@ def json_dump_file(endpoint, data, dirname=None):
     :param dirname: target directory name
     """
     if dirname:
+
         def opener(dirname, flags):
             return os.open(dirname, flags, dir_fd=dir_fd)
+
         dir_fd = os.open(dirname, os.O_RDONLY)
     else:
         opener = None
@@ -45,8 +47,10 @@ def json_load_file(endpoint, dirname=None):
     :param dirname: target directory name
     """
     if dirname:
+
         def opener(dirname, flags):
             return os.open(dirname, flags, dir_fd=dir_fd)
+
         dir_fd = os.open(dirname, os.O_RDONLY)
     else:
         opener = None

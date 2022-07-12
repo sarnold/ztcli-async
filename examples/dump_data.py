@@ -1,14 +1,19 @@
-# coding: utf-8
 """Get data from local ZT node API and dump to endpoint-named files."""
 
+import asyncio
 import os
 
-import asyncio
 import aiohttp
 
 from ztcli_api import ZeroTier, ZeroTierConnectionError
-from ztcli_api.utils import pprint, get_token, json_dump_file, json_load_file, dump_json, load_json
-
+from ztcli_api.utils import (
+    dump_json,
+    get_token,
+    json_dump_file,
+    json_load_file,
+    load_json,
+    pprint,
+)
 
 VERBOSE = os.getenv('VERBOSE', default='1')
 

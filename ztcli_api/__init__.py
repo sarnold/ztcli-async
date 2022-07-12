@@ -1,5 +1,7 @@
-# coding: utf-8
-"""A Python async client wrapper for the zerotier-cli node API."""
+"""
+A Python async client wrapper for the zerotier-cli node API.
+"""
+
 import asyncio
 import json
 import logging
@@ -79,8 +81,8 @@ class ZeroTier:
         try:
             with async_timeout.timeout(5):
                 response = await self._session.get(
-                    f'http://{self.url}/{endpoint}',
-                    headers=self.headers)
+                    f'http://{self.url}/{endpoint}', headers=self.headers
+                )
 
             logging.debug("Response status: %s", response.status)
             self.data = await response.json()
@@ -96,7 +98,9 @@ class ZeroTier:
             with async_timeout.timeout(5):
                 response = await self._session.post(
                     f'http://{self.url}/{endpoint}',
-                    headers=self.headers, data=payload)
+                    headers=self.headers,
+                    data=payload,
+                )
 
             logging.debug("Response status: %s", response.status)
             self.data = await response.json()
@@ -109,8 +113,8 @@ class ZeroTier:
         try:
             with async_timeout.timeout(5):
                 response = await self._session.delete(
-                    f'http://{self.url}/{endpoint}',
-                    headers=self.headers)
+                    f'http://{self.url}/{endpoint}', headers=self.headers
+                )
 
             logging.debug("Response status: %s", response.status)
             self.data = await response.json()

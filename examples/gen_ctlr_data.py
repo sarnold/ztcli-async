@@ -1,14 +1,14 @@
-# coding: utf-8
 """
 Get data from local ZT node API and create some networks. Requires ZT
 node running as network controller
 """
 
 import asyncio
+
 import aiohttp
 
 from ztcli_api import ZeroTier, ZeroTierConnectionError
-from ztcli_api.utils import pprint, get_token, name_generator
+from ztcli_api.utils import get_token, name_generator, pprint
 
 
 async def main():
