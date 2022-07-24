@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# generated/user files
+ztcli_api/_version.py
+
 # Distribution / packaging
 .Python
 build/
@@ -70,6 +73,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/source/api/
 
 # PyBuilder
 target/
