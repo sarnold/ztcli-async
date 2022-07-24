@@ -88,4 +88,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            wheels/yml*.whl
+            wheels/zt*.whl

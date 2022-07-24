@@ -74,10 +74,14 @@ def load_json(endpoint, opener=None):
     return data
 
 
-def name_generator(size=10, chars=string.ascii_lowercase + string.digits):
+def name_generator(
+    size=10, chars=string.ascii_lowercase + string.digits, no_sep=False
+):
     """Generate random ZeroTier network names"""
     str1 = ''.join(random.choice(chars) for _ in range(size))
     str2 = ''.join(random.choice(chars) for _ in range(size))
+    if no_sep:
+        return str1
     return str1 + '_' + str2
 
 

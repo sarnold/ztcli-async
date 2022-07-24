@@ -9,7 +9,10 @@ import logging
 import aiohttp
 import async_timeout
 
+from ._version import __version__
+
 __all__ = [
+    '__version__',
     'WRITABLE_NETWORK',
     'WRITABLE_MEMBER',
     'WRITABLE_NODE',

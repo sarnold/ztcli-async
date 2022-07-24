@@ -6,28 +6,13 @@ ztcli-async is a thin async Python client wrapper for the zerotier-cli
 node API (mainly based on `zerotier-client`_ and the `ZeroTier API doc`_).
 
 
-.. image:: https://img.shields.io/github/license/freepn/ztcli-async
+.. image:: https://img.shields.io/github/license/sarnold/ztcli-async
    :alt: GitHub
-   :target: https://github.com/freepn/ztcli-async/blob/master/LICENSE
+   :target: https://github.com/sarnold/ztcli-async/blob/master/LICENSE
 
-.. image:: https://img.shields.io/github/v/tag/freepn/ztcli-async?color=green&include_prereleases&label=latest%20release
-   :target: https://github.com/freepn/ztcli-async/releases
+.. image:: https://img.shields.io/github/v/tag/sarnold/ztcli-async?color=green&include_prereleases&label=latest%20release
+   :target: https://github.com/sarnold/ztcli-async/releases
    :alt: GitHub tag (latest SemVer, including pre-release)
-
-.. image:: https://travis-ci.org/freepn/ztcli-async.svg?branch=master
-   :target: https://travis-ci.org/freepn/ztcli-async
-
-.. image:: https://img.shields.io/github/issues/freepn/ztcli-async
-    :target: https://github.com/freepn/ztcli-async/issues?q=is:issue+is:open
-    :alt: Open Issues
-
-.. image:: https://img.shields.io/github/issues-pr/freepn/ztcli-async
-    :target: https://github.com/freepn/ztcli-async/issues?q=is:open+is:pr
-    :alt: Pull Requests
-
-.. image:: https://img.shields.io/codeclimate/maintainability/freepn/ztcli-async
-    :target: https://codeclimate.com/github/freepn/ztcli-async
-    :alt: Code Climate maintainability
 
 
 .. _zerotier-client: https://github.com/fabaff/zerotier-client
@@ -38,21 +23,29 @@ Getting Started
 ===============
 
 This is a Python thin client interface to the zerotier JSON API, only some
-of which is exposed by the ``zerotier-cli`` command-line interface.  New
-packages are available for `Debian and Ubuntu`_, and the latest can be
+of which is exposed by the ``zerotier-cli`` command-line interface.
+Packages are available for `Debian and Ubuntu`_, and the latest can be
 installed on Gentoo using the ebuilds in `this portage overlay`_.
 
 
 .. _Debian and Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
-.. _this portage overlay: https://github.com/freepn/python-overlay/dev-libs/ztcli-async/
+.. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/dev-libs/ztcli-async/
 
 
 Prerequisites
 -------------
 
-A supported linux distribution, mainly something that uses either `.ebuilds`
-(eg, Gentoo or funtoo) or `.deb` packages, starting with at least Ubuntu
-xenial or Debian stretch (see the above PPA package repo on Launchpad).
+In Theory, this software should work on anything with a working ZeroTier
+package and Python, including most BSDs, Unix/Linux, MacOS, and Windows.
+That said, it has really only been tested on the Linux variants below.
+
+Existing Packages
+-----------------
+
+Packages are available for some (tested) linux distributions, mainly
+something that uses either ``.ebuilds`` (eg, Gentoo or funtoo) or ``.deb``
+packages, starting with at least Ubuntu xenial or Debian stretch (see
+the above PPA package repo on Launchpad).
 
 For the latter, make sure you have the ``add-apt-repository`` command
 installed and then add the PPA:
@@ -63,14 +56,14 @@ installed and then add the PPA:
   $ sudo add-apt-repository -y -s ppa:nerdboy/embedded
 
 
-.. note:: Since the package series currently published are for xenial/bionic
-          the second command above will need to be manually corrected
-          afterwards if installing on Debian.
+.. note:: Since the package series currently published are for xenial,
+          bionic, and focal, the second command above will need to be
+          manually corrected afterwards if installing on Debian.
 
 
 To install on Debian you *can* use the above method, but you will need
-to edit the file under ``sources.d`` and set the distro to ``xenial``
-and then run the update command:
+to edit the file under ``sources.d`` and set the distro to the "closest",
+then run the update command:
 
 ::
 
@@ -93,7 +86,7 @@ this PPA to your system", eg, ``41113ed57774ed19`` for `Embedded device ppa`_.
 Dev Install
 -----------
 
-As long as you have git and at least Python 3.5, then the "easy" dev
+As long as you have git and at least Python 3.6, then the "easy" dev
 install is to clone this repository and install the latest zerotier package
 (there are packages in the PPA and Gentoo overlay).  Check the version of
 zerotier in the main portage tree; you will need at least version ``1.4.6:0``.
@@ -126,10 +119,9 @@ If the above is working, you can try one of the examples:
 
 ::
 
-  $ git clone https://github.com/freepn/ztcli-async
+  $ git clone https://github.com/sarnold/ztcli-async
   $ cd ztcli-async
-  $ cp examples/pprint_data.py .
-  $ sudo python3 pprint_data.py
+  $ sudo python3 examples/pprint_data.py
 
 
 .. note:: By default you will not have correct permissions to access the
@@ -163,7 +155,7 @@ following:
 Software Stack and Tool Dependencies
 ====================================
 
-* `python`_ - at least version 3.5
+* `Python`_ - at least version 3.6
 * `async_timeout`_ - timeout context manager for asyncio
 * `aiohttp`_ - http client/server for asyncio
 * `ZeroTier`_ - network virtualization engine
@@ -179,28 +171,28 @@ Versioning
 ==========
 
 We use `SemVer`_ for versioning. For the versions available, see the
-`releases on this repository`_.
+`releases in this repository`_.
 
 .. _SemVer: http://semver.org/
-.. _releases on this repository: https://github.com/freepn/ztcli-async/releases
+.. _releases in this repository: https://github.com/sarnold/ztcli-async/releases
 
 
 Contributing
 ============
 
-Please read `CONTRIBUTING.rst`_ for details on our code of conduct, and the
-process for submitting pull requests to us.
+Please read `CONTRIBUTING.rst`_ for details on the code of conduct and the
+process for submitting pull requests.
 
-.. _CONTRIBUTING.rst: https://github.com/freepn/ztcli-async/CONTRIBUTING.rst
+.. _CONTRIBUTING.rst: https://github.com/sarnold/ztcli-async/CONTRIBUTING.rst
 
 
 Authors
 =======
 
-* **Stephen Arnold** - *Current implementation and packaging* - `freepn`_
+* **Stephen Arnold** - *Current implementation and packaging* - `nerdboy`_
 * **Fabian Affolter** - *Original implementation* - `fabaff`_
 
-.. _freepn: https://github.com/freepn/
+.. _nerdboy: https://github.com/sarnold/
 .. _fabaff: https://github.com/fabaff/
 
 
@@ -210,7 +202,7 @@ License
 This project is licensed under the MIT license - see the `LICENSE file`_ for
 details.
 
-.. _LICENSE file: https://github.com/freepn/ztcli-async/blob/master/LICENSE
+.. _LICENSE file: https://github.com/sarnold/ztcli-async/blob/master/LICENSE
 
 
 Acknowledgments
