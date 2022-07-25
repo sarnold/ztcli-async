@@ -1,1 +1,7 @@
-include LICENSE
+graft examples
+graft test
+graft docs
+
+include tox.ini README.rst
+
+global-exclude *~ *.py[cod]

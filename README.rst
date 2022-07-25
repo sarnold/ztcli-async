@@ -2,18 +2,16 @@
  ztcli-async
 =============
 
+|ci| |wheels| |release| |badge| |coverage|
+
+|pre| |cov| |pylint|
+
+|tag| |license| |python|
+
 ztcli-async is a thin async Python client wrapper for the zerotier-cli
 node API (mainly based on `zerotier-client`_ and the `ZeroTier API doc`_).
-
-
-.. image:: https://img.shields.io/github/license/sarnold/ztcli-async
-   :alt: GitHub
-   :target: https://github.com/sarnold/ztcli-async/blob/master/LICENSE
-
-.. image:: https://img.shields.io/github/v/tag/sarnold/ztcli-async?color=green&include_prereleases&label=latest%20release
-   :target: https://github.com/sarnold/ztcli-async/releases
-   :alt: GitHub tag (latest SemVer, including pre-release)
-
+ztcli-async works with all node types, eg root (aka moon), network controller,
+and user nodes.
 
 .. _zerotier-client: https://github.com/fabaff/zerotier-client
 .. _ZeroTier API doc: https://zerotier.com/manual/
@@ -210,3 +208,47 @@ Acknowledgments
 
 * Thanks to Fabian for the clean original client implementation and inspiration
 * Thanks to the ZeroTier project for providing the network virtualization engine
+
+.. |ci| image:: https://github.com/sarnold/ztcli-async/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/ci.yml
+    :alt: CI Status
+
+.. |wheels| image:: https://github.com/sarnold/ztcli-async/actions/workflows/wheels.yml/badge.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/wheels.yml
+    :alt: Wheel Status
+
+.. |coverage| image:: https://github.com/sarnold/ztcli-async/actions/workflows/coverage.yml/badge.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/coverage.yml
+    :alt: Coverage workflow
+
+.. |badge| image:: https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml/badge.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml
+    :alt: Pylint Status
+
+.. |release| image:: https://github.com/sarnold/ztcli-async/actions/workflows/release.yml/badge.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/release.yml
+    :alt: Release Status
+
+.. |cov| image:: https://raw.githubusercontent.com/sarnold/ztcli-async/badges/master/test-coverage.svg
+    :target: https://github.com/sarnold/ztcli-async/
+    :alt: Test coverage
+
+.. |pylint| image:: https://raw.githubusercontent.com/sarnold/ztcli-async/badges/master/pylint-score.svg
+    :target: https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml
+    :alt: Pylint score
+
+.. |license| image:: https://img.shields.io/github/license/sarnold/ztcli-async
+    :target: https://github.com/sarnold/ztcli-async/blob/master/LICENSE
+    :alt: License
+
+.. |tag| image:: https://img.shields.io/github/v/tag/sarnold/ztcli-async?color=green&include_prereleases&label=latest%20release
+    :target: https://github.com/sarnold/ztcli-async/releases
+    :alt: GitHub tag
+
+.. |python| image:: https://img.shields.io/badge/python-3.6+-blue.svg
+    :target: https://www.python.org/downloads/
+    :alt: Python
+
+.. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
