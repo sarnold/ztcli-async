@@ -8,6 +8,26 @@ import sys
 from pathlib import Path
 
 
+def platform_check():
+    """
+    Check to see if we think we are POSIX.
+
+    :return valid_os: True if POSIX, else False
+    """
+    valid_os = []
+    myname = sys.platform
+    is_posix = os.name == 'posix'
+    posix_list = [
+        'linux',
+        'darwin',
+        'openbsd',
+        'freebsd',
+    ]
+    valid_os = [x for x in posix_list if x in myname and is_posix]
+
+    return valid_os
+
+
 def pprint(obj):
     """
     Pretty printer for JSON.
@@ -17,7 +37,7 @@ def pprint(obj):
     print(json.dumps(obj, indent=2, separators=(',', ': ')))
 
 
-def json_dump_file(endpoint, data, dirname=None):
+def json_dump_file(endpoint, data, dirname=None, is_posix=platform_check()):  # noqa
     """
     Dump JSON endpoint data to a named file and, optionally, to a target
     directory.
@@ -25,33 +45,42 @@ def json_dump_file(endpoint, data, dirname=None):
     :param endpoint: ZT endpoint name => filename
     :param data: endpoint data to dump
     :param dirname: target directory name
+    :param is_posix: default is ``platform_check()``, force True/False
+                     if needed
     """
-    if dirname:
+    if dirname and is_posix:
 
         def opener(dirname, flags):
             return os.open(dirname, flags, dir_fd=dir_fd)
 
         dir_fd = os.open(dirname, os.O_RDONLY)
+    elif dirname and not is_posix:
+        endpoint = os.path.join(dirname, endpoint)
+        opener = None
     else:
         opener = None
 
     dump_json(endpoint, data, opener=opener)
 
 
-def json_load_file(endpoint, dirname=None):
+def json_load_file(endpoint, dirname=None, is_posix=platform_check()):  # noqa
     """
     Load JSON endpoint data from a named file and, optionally, a target
     directory.
 
     :param endpoint: ZT endpoint name => filename
     :param dirname: target directory name
+    :param is_posix: default is ``platform_check()``, force True/False
     """
-    if dirname:
+    if dirname and is_posix:
 
         def opener(dirname, flags):
             return os.open(dirname, flags, dir_fd=dir_fd)
 
         dir_fd = os.open(dirname, os.O_RDONLY)
+    elif dirname and not is_posix:
+        endpoint = os.path.join(dirname, endpoint)
+        opener = None
     else:
         opener = None
 
@@ -72,17 +101,6 @@ def load_json(endpoint, opener=None):
         data = json.load(f_ptr)
     print(f'{endpoint} data read from {endpoint}.json')
     return data
-
-
-def name_generator(
-    size=10, chars=string.ascii_lowercase + string.digits, no_sep=False
-):
-    """Generate random ZeroTier network names"""
-    str1 = ''.join(random.choice(chars) for _ in range(size))
-    str2 = ''.join(random.choice(chars) for _ in range(size))
-    if no_sep:
-        return str1
-    return str1 + '_' + str2
 
 
 def get_token(zt_home=None):
@@ -122,3 +140,23 @@ def get_platform_path():
     plat_name = [x for x in platform_paths if x in name]
 
     return platform_paths[plat_name[0]]
+
+
+def name_generator(
+    size=10, chars=string.ascii_lowercase + string.digits, no_sep=False
+):
+    """
+    Generate random ZeroTier network names or other ID strings. Default
+    is 2 substrings of ``size`` with an underscore as separator, eg, if
+    ``size`` is 10, the returned string is 21 characters.
+
+    :param size: number of chars in each substring
+    :param chars: character types used
+    :param no_sep: if False, do not use separator, return ``size`` instead
+    :return str:
+    """
+    str1 = ''.join(random.choice(chars) for _ in range(size))
+    str2 = ''.join(random.choice(chars) for _ in range(size))
+    if no_sep:
+        return str1
+    return str1 + '_' + str2

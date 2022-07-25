@@ -1,5 +1,7 @@
 import json
+import os
 import string
+from pathlib import Path
 
 import pytest
 
@@ -9,6 +11,7 @@ from ztcli_api.utils import (
     json_dump_file,
     json_load_file,
     name_generator,
+    platform_check,
 )
 
 
@@ -52,6 +55,15 @@ def test_dump_and_load_json(tmp_path):
     json_check(net_data)
 
 
+def test_dump_and_load_json_not_posix(tmp_path):
+    (node_data, peer_data, net_data) = load_data()
+    json_dump_file('node', node_data, tmp_path, False)
+    node_dump = json_load_file('node', tmp_path, False)
+    json_check(node_dump)
+    json_check(peer_data)
+    json_check(net_data)
+
+
 def test_name_generator():
     name = name_generator()
     assert len(name) == 21
@@ -75,6 +87,7 @@ def test_name_generator_chars():
 
 def test_get_platform_path():
     zt_platpath = get_platform_path()
+    assert isinstance(zt_platpath, Path)
     assert 'zerotier' or 'ZeroTier' in str(zt_platpath)
 
 
@@ -92,3 +105,12 @@ def test_get_token(tmp_path):
 def test_get_token_not_found(tmp_path):
     zt_auth = get_token()
     assert zt_auth is None
+
+
+def test_platform_check():
+    posix_name = os.name
+    iam = platform_check()
+    if posix_name == 'posix':
+        assert iam
+    else:
+        assert not iam
