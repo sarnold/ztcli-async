@@ -1,3 +1,10 @@
+0.0.7 (2020-02-25) [Stephen Arnold]
+-----------------------------------
+
+- new release for API payload change, version bump and example update
+- ztcli_api/__init__.py: change set_value k,v pair arg to cfg_dict
+- pdate changelog for 0.0.6
+
 0.0.6 (2020-02-21) [Stephen Arnold]
 -----------------------------------
 

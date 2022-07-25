@@ -1,3 +1,7 @@
+aiohttp
+async_timeout
+coverage[toml]
+coverage_python_version
 pytest
+pytest-cov
 pytest-flake8
-pytest-pep8
