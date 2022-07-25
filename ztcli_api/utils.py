@@ -32,7 +32,7 @@ def pprint(obj):
     """
     Pretty printer for JSON.
 
-    :param opj: JSON obj
+    :param obj: JSON obj
     """
     print(json.dumps(obj, indent=2, separators=(',', ': ')))
 
