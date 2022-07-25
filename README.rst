@@ -27,7 +27,7 @@ installed on Gentoo using the ebuilds in `this portage overlay`_.
 
 
 .. _Debian and Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
-.. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/dev-libs/ztcli-async/
+.. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/tree/master/dev-libs/ztcli-async
 
 
 Prerequisites
@@ -158,7 +158,7 @@ Software Stack and Tool Dependencies
 * `aiohttp`_ - http client/server for asyncio
 * `ZeroTier`_ - network virtualization engine
 
-.. _Python: https://docs.python.org/3.5/index.html
+.. _Python: https://docs.python.org/3.6/index.html
 .. _async_timeout: https://github.com/aio-libs/async-timeout
 .. _aiohttp: https://pypi.org/project/aiohttp/
 .. _ZeroTier: https://www.zerotier.com/
@@ -178,10 +178,10 @@ We use `SemVer`_ for versioning. For the versions available, see the
 Contributing
 ============
 
-Please read `CONTRIBUTING.rst`_ for details on the code of conduct and the
+Please read CONTRIBUTING_ for details on the code of conduct and the
 process for submitting pull requests.
 
-.. _CONTRIBUTING.rst: https://github.com/sarnold/ztcli-async/CONTRIBUTING.rst
+.. _CONTRIBUTING: https://github.com/sarnold/ztcli-async/blob/master/CONTRIBUTING.rst
 
 
 Authors
