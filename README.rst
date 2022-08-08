@@ -40,7 +40,7 @@ That said, it has really only been tested on the Linux variants below.
 Existing Packages
 -----------------
 
-Packages are available for some (tested) linux distributions, mainly
+Older packages are available for some (tested) linux distributions, mainly
 something that uses either ``.ebuilds`` (eg, Gentoo or funtoo) or ``.deb``
 packages, starting with at least Ubuntu xenial or Debian stretch (see
 the above PPA package repo on Launchpad).
@@ -98,14 +98,8 @@ or::
   $ sudo apt-get install zerotier-one
 
 
-After cloning this repository, you can try running the example scripts
-from the source tree; if you have already installed this package, the
-examples should run from any directory, otherwise you'll need to copy
-the file you want to run to the top-level source tree first.
-
-Without installing ztcli-async, first install the two package dependencies
-listed below, then install zerotier and make sure the service has started.
-You can check the zerotier client state with::
+Start zerotier according to your distro package; you can check the
+zerotier client state with::
 
   $ sudo zerotier-cli info
 
@@ -113,13 +107,26 @@ which should respond with::
 
   200 info <your ID> 1.4.6 ONLINE
 
-If the above is working, you can try one of the examples:
+If the above is working, you can try one of the examples below.
+
+If you set an ACL (see note below), then try this:
 
 ::
 
   $ git clone https://github.com/sarnold/ztcli-async
   $ cd ztcli-async
-  $ sudo python3 examples/pprint_data.py
+  $ tox -e dev
+  $ source .tox/dev/bin/activate
+  $ python3 examples/pprint_data.py
+  $ deactivate
+
+
+Without an ACL, you'll need to install both async deps as system packages,
+eg, then try sudo without the venv::
+
+  $ sudo emerge aiohttp async_timeout
+  $ cd ztcli-async
+  $ sudo PYTHONPATH="." python examples/pprint_data.py
 
 
 .. note:: By default you will not have correct permissions to access the
