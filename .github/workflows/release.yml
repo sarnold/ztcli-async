@@ -43,10 +43,10 @@ jobs:
 
     - name: Build dist pkgs
       run: |
-        tox -e deploy
+        tox -e build
 
     - name: Upload artifacts
-      if: matrix.python-version == 3.8 && runner.os != 'Windows'
+      if: matrix.python-version == 3.9 && runner.os != 'Windows'
       uses: actions/upload-artifact@v2
       with:
         name: wheels
