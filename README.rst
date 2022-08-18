@@ -124,7 +124,7 @@ If you set an ACL (see note below), then try this:
 Without an ACL, you'll need to install both async deps as system packages,
 eg, then try sudo without the venv::
 
-  $ sudo emerge aiohttp async_timeout
+  $ sudo emerge aiohttp async-timeout
   $ cd ztcli-async
   $ sudo PYTHONPATH="." python examples/pprint_data.py
 
@@ -161,12 +161,12 @@ Software Stack and Tool Dependencies
 ====================================
 
 * `Python`_ - at least version 3.6
-* `async_timeout`_ - timeout context manager for asyncio
+* `async-timeout`_ - timeout context manager for asyncio
 * `aiohttp`_ - http client/server for asyncio
 * `ZeroTier`_ - network virtualization engine
 
 .. _Python: https://docs.python.org/3.6/index.html
-.. _async_timeout: https://github.com/aio-libs/async-timeout
+.. _async-timeout: https://github.com/aio-libs/async-timeout
 .. _aiohttp: https://pypi.org/project/aiohttp/
 .. _ZeroTier: https://www.zerotier.com/
 
