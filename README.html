@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ztcli-async &mdash; ztcli-async 0.0.9.dev2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ztcli_api" href="api/modules.html" />
+    <link rel="prev" title="Welcome to the ztcli-async documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ztcli-async
+          </a>
+              <div class="version">
+                0.0.9.dev2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ztcli-async</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#existing-packages">Existing Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev-install">Dev Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#standards-and-coding-style">Standards and Coding Style</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#user-install-deployment">User Install / Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-stack-and-tool-dependencies">Software Stack and Tool Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">ztcli_api</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ztcli-async</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ztcli-async</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/README.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ztcli-async">
+<h1>ztcli-async<a class="headerlink" href="#ztcli-async" title="Permalink to this heading"></a></h1>
+<p><a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/ci.yml"><img alt="CI Status" src="https://github.com/sarnold/ztcli-async/actions/workflows/ci.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/wheels.yml"><img alt="Wheel Status" src="https://github.com/sarnold/ztcli-async/actions/workflows/wheels.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/release.yml"><img alt="Release Status" src="https://github.com/sarnold/ztcli-async/actions/workflows/release.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml"><img alt="Pylint Status" src="https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/coverage.yml"><img alt="Coverage workflow" src="https://github.com/sarnold/ztcli-async/actions/workflows/coverage.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/"><img alt="Test coverage" src="https://raw.githubusercontent.com/sarnold/ztcli-async/badges/master/test-coverage.svg" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/actions/workflows/pylint.yml"><img alt="Pylint score" src="https://raw.githubusercontent.com/sarnold/ztcli-async/badges/master/pylint-score.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/sarnold/ztcli-async/releases"><img alt="GitHub tag" src="https://img.shields.io/github/v/tag/sarnold/ztcli-async?color=green&amp;include_prereleases&amp;label=latest%20release" /></a> <a class="reference external" href="https://github.com/sarnold/ztcli-async/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/sarnold/ztcli-async" /></a> <a class="reference external" href="https://www.python.org/downloads/"><img alt="Python" src="https://img.shields.io/badge/python-3.6+-blue.svg" /></a></p>
+<p>ztcli-async is a thin async Python client wrapper for the zerotier-cli
+node API (mainly based on <a class="reference external" href="https://github.com/fabaff/zerotier-client">zerotier-client</a> and the <a class="reference external" href="https://zerotier.com/manual/">ZeroTier API doc</a>).
+ztcli-async works with all node types, eg root (aka moon), network controller,
+and user nodes.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<p>This is a Python thin client interface to the zerotier JSON API, only some
+of which is exposed by the <code class="docutils literal notranslate"><span class="pre">zerotier-cli</span></code> command-line interface.
+Packages are available for <a class="reference external" href="https://launchpad.net/~nerdboy/+archive/ubuntu/embedded">Debian and Ubuntu</a>, and the latest can be
+installed on Gentoo using the ebuilds in <a class="reference external" href="https://github.com/VCTLabs/embedded-overlay/tree/master/dev-libs/ztcli-async">this portage overlay</a>.</p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h3>
+<p>In Theory, this software should work on anything with a working ZeroTier
+package and Python, including most BSDs, Unix/Linux, MacOS, and Windows.
+That said, it has really only been tested on the Linux variants below.</p>
+</section>
+<section id="existing-packages">
+<h3>Existing Packages<a class="headerlink" href="#existing-packages" title="Permalink to this heading"></a></h3>
+<p>Older packages are available for some (tested) linux distributions, mainly
+something that uses either <code class="docutils literal notranslate"><span class="pre">.ebuilds</span></code> (eg, Gentoo or funtoo) or <code class="docutils literal notranslate"><span class="pre">.deb</span></code>
+packages, starting with at least Ubuntu xenial or Debian stretch (see
+the above PPA package repo on Launchpad).</p>
+<p>For the latter, make sure you have the <code class="docutils literal notranslate"><span class="pre">add-apt-repository</span></code> command
+installed and then add the PPA:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository -y -s ppa:nerdboy/embedded
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since the package series currently published are for xenial,
+bionic, and focal, the second command above will need to be
+manually corrected afterwards if installing on Debian.</p>
+</div>
+<p>To install on Debian you <em>can</em> use the above method, but you will need
+to edit the file under <code class="docutils literal notranslate"><span class="pre">sources.d</span></code> and set the distro to the “closest”,
+then run the update command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
+</pre></div>
+</div>
+<p>If you get a key error you will also need to manually import the PPA
+signing key like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys &lt;PPA_KEY&gt;
+</pre></div>
+</div>
+<p>where &lt;PPA_KEY&gt; is the key shown in the launchpad PPA page under “Adding
+this PPA to your system”, eg, <code class="docutils literal notranslate"><span class="pre">41113ed57774ed19</span></code> for <a class="reference external" href="https://launchpad.net/~nerdboy/+archive/ubuntu/embedded">Embedded device ppa</a>.</p>
+</section>
+<section id="dev-install">
+<h3>Dev Install<a class="headerlink" href="#dev-install" title="Permalink to this heading"></a></h3>
+<p>As long as you have git and at least Python 3.6, then the “easy” dev
+install is to clone this repository and install the latest zerotier package
+(there are packages in the PPA and Gentoo overlay).  Check the version of
+zerotier in the main portage tree; you will need at least version <code class="docutils literal notranslate"><span class="pre">1.4.6:0</span></code>.</p>
+<p>Do the usual install dance, either:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># emerge zerotier</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install zerotier-one
+</pre></div>
+</div>
+<p>Start zerotier according to your distro package; you can check the
+zerotier client state with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo zerotier-cli info
+</pre></div>
+</div>
+<p>which should respond with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">200</span> <span class="n">info</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="mf">1.4.6</span> <span class="n">ONLINE</span>
+</pre></div>
+</div>
+<p>If the above is working, you can try one of the examples below.</p>
+<p>If you set an ACL (see note below), then try this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/sarnold/ztcli-async
+$ cd ztcli-async
+$ tox -e dev
+$ source .tox/dev/bin/activate
+$ python3 examples/pprint_data.py
+$ deactivate
+</pre></div>
+</div>
+<p>Without an ACL, you’ll need to install both async deps as system packages,
+eg, then try sudo without the venv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo emerge aiohttp async-timeout
+$ cd ztcli-async
+$ sudo PYTHONPATH=&quot;.&quot; python examples/pprint_data.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default you will not have correct permissions to access the
+local zerotier node directly, due to the permissions on zerotier
+identity files.  You can either prefix the commands with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>,
+or add a usr ACL (for your local user) to the <code class="docutils literal notranslate"><span class="pre">authtoken.secret</span></code>
+file.</p>
+</div>
+</section>
+<section id="standards-and-coding-style">
+<h3>Standards and Coding Style<a class="headerlink" href="#standards-and-coding-style" title="Permalink to this heading"></a></h3>
+<p>Currently pep8 and flake8 are the only tests besides some CI code analysis
+checks for complexity and security issues (we try to keep the “cognitive
+complexity” low when possible).</p>
+</section>
+</section>
+<section id="user-install-deployment">
+<h2>User Install / Deployment<a class="headerlink" href="#user-install-deployment" title="Permalink to this heading"></a></h2>
+<p>Use the latest ztcli-async package for your Linux distro and hardware
+architecture; all arch-specific packages should support at least the
+following:</p>
+<ul class="simple">
+<li><p>armhf/arm</p></li>
+<li><p>aarch64/arm64</p></li>
+<li><p>x86_64/amd64</p></li>
+<li><p>i686/x86</p></li>
+</ul>
+</section>
+<section id="software-stack-and-tool-dependencies">
+<h2>Software Stack and Tool Dependencies<a class="headerlink" href="#software-stack-and-tool-dependencies" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.6/index.html">Python</a> - at least version 3.6</p></li>
+<li><p><a class="reference external" href="https://github.com/aio-libs/async-timeout">async-timeout</a> - timeout context manager for asyncio</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/aiohttp/">aiohttp</a> - http client/server for asyncio</p></li>
+<li><p><a class="reference external" href="https://www.zerotier.com/">ZeroTier</a> - network virtualization engine</p></li>
+</ul>
+</section>
+<section id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this heading"></a></h2>
+<p>We use <a class="reference external" href="http://semver.org/">SemVer</a> for versioning. For the versions available, see the
+<a class="reference external" href="https://github.com/sarnold/ztcli-async/releases">releases in this repository</a>.</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h2>
+<p>Please read <a class="reference external" href="https://github.com/sarnold/ztcli-async/blob/master/CONTRIBUTING.rst">CONTRIBUTING</a> for details on the code of conduct and the
+process for submitting pull requests.</p>
+</section>
+<section id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Stephen Arnold</strong> - <em>Current implementation and packaging</em> - <a class="reference external" href="https://github.com/sarnold/">nerdboy</a></p></li>
+<li><p><strong>Fabian Affolter</strong> - <em>Original implementation</em> - <a class="reference external" href="https://github.com/fabaff/">fabaff</a></p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<p>This project is licensed under the MIT license - see the <a class="reference external" href="https://github.com/sarnold/ztcli-async/blob/master/LICENSE">LICENSE file</a> for
+details.</p>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Thanks to Fabian for the clean original client implementation and inspiration</p></li>
+<li><p>Thanks to the ZeroTier project for providing the network virtualization engine</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the ztcli-async documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/modules.html" class="btn btn-neutral float-right" title="ztcli_api" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stephen L Arnold.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

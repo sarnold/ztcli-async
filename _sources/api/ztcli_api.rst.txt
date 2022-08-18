@@ -1,0 +1,18 @@
+ztcli\_api package
+==================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   ztcli_api.utils
+
+Module contents
+---------------
+
+.. automodule:: ztcli_api
+   :members:
+   :undoc-members:
+   :show-inheritance:

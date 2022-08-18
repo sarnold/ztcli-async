@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ztcli_api &mdash; ztcli-async 0.0.9.dev2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ztcli-async
+          </a>
+              <div class="version">
+                0.0.9.dev2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">ztcli-async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">ztcli_api</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ztcli-async</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>ztcli_api</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ztcli_api</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A Python async client wrapper for the zerotier-cli node API.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="kn">import</span> <span class="nn">async_timeout</span>
+
+<span class="kn">from</span> <span class="nn">._version</span> <span class="kn">import</span> <span class="n">__version__</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;__version__&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;WRITABLE_NETWORK&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;WRITABLE_MEMBER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;WRITABLE_NODE&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ZeroTier&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ZeroTierError&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ZeroTierConnectionError&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ZeroTierNoDataAvailable&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">WRITABLE_NETWORK</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;private&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;enableBroadcast&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;v4AssignMode&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;v6AssignMode&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mtu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;multicastLimit&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;routes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ipAssignmentPools&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rules&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;capabilities&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tags&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;remoteTraceTarget&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;remoteTraceLevel&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">WRITABLE_MEMBER</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;authorized&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;activeBridge&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ipAssignments&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">WRITABLE_NODE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;allowManaged&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;allowGlobal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;allowDefault&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="ZeroTierError"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTierError">[docs]</a><span class="k">class</span> <span class="nc">ZeroTierError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;General ZeroTierError exception occurred.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ZeroTierConnectionError"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTierConnectionError">[docs]</a><span class="k">class</span> <span class="nc">ZeroTierConnectionError</span><span class="p">(</span><span class="n">ZeroTierError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raise when a connection error is encountered.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ZeroTierNoDataAvailable"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTierNoDataAvailable">[docs]</a><span class="k">class</span> <span class="nc">ZeroTierNoDataAvailable</span><span class="p">(</span><span class="n">ZeroTierError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raise when no data is available.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ZeroTier"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTier">[docs]</a><span class="k">class</span> <span class="nc">ZeroTier</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Async class to create a ZeroTier-cli connection object to get, set,</span>
+<span class="sd">    and delete endpoint-specific data. Writable items for each endpoint</span>
+<span class="sd">    are exported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_token</span><span class="p">,</span> <span class="n">loop</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9993</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the connection.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loop</span> <span class="o">=</span> <span class="n">loop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-ZT1-Auth&#39;</span><span class="p">:</span> <span class="n">api_token</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;localhost:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<div class="viewcode-block" id="ZeroTier.get_data"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTier.get_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a GET request to JSON API ``endpoint``.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">async_timeout</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;http://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
+                <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Response status: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">,</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cannot load data from ZeroTier node&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ZeroTierConnectionError</span><span class="p">(</span><span class="s1">&#39;Cannot connect to ZeroTier API&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div>
+
+<div class="viewcode-block" id="ZeroTier.set_value"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTier.set_value">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg_dict</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a POST request to JSON API ``endpoint``.&quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cfg_dict</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using payload: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">async_timeout</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;http://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Response status: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">,</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cannot update entry of ZeroTier node&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ZeroTierConnectionError</span><span class="p">(</span><span class="s1">&#39;Cannot connect to ZeroTier API&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div>
+
+<div class="viewcode-block" id="ZeroTier.delete_thing"><a class="viewcode-back" href="../api/ztcli_api.html#ztcli_api.ZeroTier.delete_thing">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete_thing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a DELETE request to JSON API ``endpoint``.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">async_timeout</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;http://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
+                <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Response status: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">,</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cannot delete entry from ZeroTier node&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ZeroTierConnectionError</span><span class="p">(</span><span class="s1">&#39;Cannot connect to ZeroTier API&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stephen L Arnold.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

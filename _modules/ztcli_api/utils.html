@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ztcli_api.utils &mdash; ztcli-async 0.0.9.dev2 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> ztcli-async
+          </a>
+              <div class="version">
+                0.0.9.dev2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">ztcli-async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">ztcli_api</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ztcli-async</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../ztcli_api.html">ztcli_api</a> &raquo;</li>
+      <li>ztcli_api.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ztcli_api.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;ZT platform and JSON/file handling utilities.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="platform_check"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.platform_check">[docs]</a><span class="k">def</span> <span class="nf">platform_check</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check to see if we think we are POSIX.</span>
+
+<span class="sd">    :return valid_os: True if POSIX, else False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valid_os</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">myname</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
+    <span class="n">is_posix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;posix&#39;</span>
+    <span class="n">posix_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;linux&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darwin&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;openbsd&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;freebsd&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">valid_os</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">posix_list</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">myname</span> <span class="ow">and</span> <span class="n">is_posix</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">valid_os</span></div>
+
+
+<div class="viewcode-block" id="pprint"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.pprint">[docs]</a><span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pretty printer for JSON.</span>
+
+<span class="sd">    :param obj: JSON obj</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="json_dump_file"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.json_dump_file">[docs]</a><span class="k">def</span> <span class="nf">json_dump_file</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">dirname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_posix</span><span class="o">=</span><span class="n">platform_check</span><span class="p">()):</span>  <span class="c1"># noqa</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dump JSON endpoint data to a named file and, optionally, to a target</span>
+<span class="sd">    directory.</span>
+
+<span class="sd">    :param endpoint: ZT endpoint name =&gt; filename</span>
+<span class="sd">    :param data: endpoint data to dump</span>
+<span class="sd">    :param dirname: target directory name</span>
+<span class="sd">    :param is_posix: default is ``platform_check()``, force True/False</span>
+<span class="sd">                     if needed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dirname</span> <span class="ow">and</span> <span class="n">is_posix</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">opener</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">flags</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">dir_fd</span><span class="o">=</span><span class="n">dir_fd</span><span class="p">)</span>
+
+        <span class="n">dir_fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDONLY</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dirname</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_posix</span><span class="p">:</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span>
+        <span class="n">opener</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">opener</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">dump_json</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="json_load_file"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.json_load_file">[docs]</a><span class="k">def</span> <span class="nf">json_load_file</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">dirname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_posix</span><span class="o">=</span><span class="n">platform_check</span><span class="p">()):</span>  <span class="c1"># noqa</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load JSON endpoint data from a named file and, optionally, a target</span>
+<span class="sd">    directory.</span>
+
+<span class="sd">    :param endpoint: ZT endpoint name =&gt; filename</span>
+<span class="sd">    :param dirname: target directory name</span>
+<span class="sd">    :param is_posix: default is ``platform_check()``, force True/False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dirname</span> <span class="ow">and</span> <span class="n">is_posix</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">opener</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">flags</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">dir_fd</span><span class="o">=</span><span class="n">dir_fd</span><span class="p">)</span>
+
+        <span class="n">dir_fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDONLY</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dirname</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_posix</span><span class="p">:</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span>
+        <span class="n">opener</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">opener</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_json</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="dump_json"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.dump_json">[docs]</a><span class="k">def</span> <span class="nf">dump_json</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Dump JSON endpoint data to a file using optional ``opener``.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_ptr</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f_ptr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1"> data saved to </span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_json"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.load_json">[docs]</a><span class="k">def</span> <span class="nf">load_json</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load JSON endpoint data from a file using optional ``opener``.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_ptr</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f_ptr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1"> data read from </span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="get_token"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.get_token">[docs]</a><span class="k">def</span> <span class="nf">get_token</span><span class="p">(</span><span class="n">zt_home</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get ZeroTier authentication token (requires root or user acl).</span>
+
+<span class="sd">    :param zt_home: non-std path to ZT home directory</span>
+<span class="sd">    :return zt_auth: contents of ZT authtoken file or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">zt_auth</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">zt_home</span><span class="p">:</span>
+        <span class="n">zt_home</span> <span class="o">=</span> <span class="n">get_platform_path</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">zt_home</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">zt_home</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zt_home</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">zt_auth</span> <span class="o">=</span> <span class="n">zt_home</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;authtoken.secret&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">zt_auth</span></div>
+
+
+<div class="viewcode-block" id="get_platform_path"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.get_platform_path">[docs]</a><span class="k">def</span> <span class="nf">get_platform_path</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find platform path to ZT home directory (where the authtoken lives).</span>
+
+<span class="sd">    :return: path to ZT home as Path obj</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
+
+    <span class="n">platform_paths</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;win32&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">ProgramData</span><span class="se">\\</span><span class="s1">ZeroTier</span><span class="se">\\</span><span class="s1">One&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;linux&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/var/lib/zerotier-one&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;darwin&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/Library/Application Support/ZeroTier/One&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;bsd&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/var/db/zerotier-one&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">plat_name</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">platform_paths</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">platform_paths</span><span class="p">[</span><span class="n">plat_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span></div>
+
+
+<div class="viewcode-block" id="name_generator"><a class="viewcode-back" href="../../api/ztcli_api.utils.html#ztcli_api.utils.name_generator">[docs]</a><span class="k">def</span> <span class="nf">name_generator</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">no_sep</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate random ZeroTier network names or other ID strings. Default</span>
+<span class="sd">    is 2 substrings of ``size`` with an underscore as separator, eg, if</span>
+<span class="sd">    ``size`` is 10, the returned string is 21 characters.</span>
+
+<span class="sd">    :param size: number of chars in each substring</span>
+<span class="sd">    :param chars: character types used</span>
+<span class="sd">    :param no_sep: if False, do not use separator, return ``size`` instead</span>
+<span class="sd">    :return str:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">str1</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">str2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">no_sep</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">str1</span>
+    <span class="k">return</span> <span class="n">str1</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">str2</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stephen L Arnold.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

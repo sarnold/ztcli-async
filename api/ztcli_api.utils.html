@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ztcli_api.utils module &mdash; ztcli-async 0.0.9.dev2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="ztcli_api package" href="ztcli_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ztcli-async
+          </a>
+              <div class="version">
+                0.0.9.dev2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">ztcli-async</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ztcli_api</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ztcli_api.html">ztcli_api package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ztcli_api.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ztcli_api.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ztcli_api.html#module-ztcli_api">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ztcli-async</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">ztcli_api</a> &raquo;</li>
+          <li><a href="ztcli_api.html">ztcli_api package</a> &raquo;</li>
+      <li>ztcli_api.utils module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/ztcli_api.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-ztcli_api.utils">
+<span id="ztcli-api-utils-module"></span><h1>ztcli_api.utils module<a class="headerlink" href="#module-ztcli_api.utils" title="Permalink to this heading"></a></h1>
+<p>ZT platform and JSON/file handling utilities.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.dump_json">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">dump_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opener</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#dump_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.dump_json" title="Permalink to this definition"></a></dt>
+<dd><p>Dump JSON endpoint data to a file using optional <code class="docutils literal notranslate"><span class="pre">opener</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.get_platform_path">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">get_platform_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#get_platform_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.get_platform_path" title="Permalink to this definition"></a></dt>
+<dd><p>Find platform path to ZT home directory (where the authtoken lives).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>path to ZT home as Path obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.get_token">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">get_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zt_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#get_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.get_token" title="Permalink to this definition"></a></dt>
+<dd><p>Get ZeroTier authentication token (requires root or user acl).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>zt_home</strong> – non-std path to ZT home directory</p>
+</dd>
+<dt class="field-even">Return zt_auth</dt>
+<dd class="field-even"><p>contents of ZT authtoken file or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.json_dump_file">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">json_dump_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_posix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['linux']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#json_dump_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.json_dump_file" title="Permalink to this definition"></a></dt>
+<dd><p>Dump JSON endpoint data to a named file and, optionally, to a target
+directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> – ZT endpoint name =&gt; filename</p></li>
+<li><p><strong>data</strong> – endpoint data to dump</p></li>
+<li><p><strong>dirname</strong> – target directory name</p></li>
+<li><p><strong>is_posix</strong> – default is <code class="docutils literal notranslate"><span class="pre">platform_check()</span></code>, force True/False
+if needed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.json_load_file">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">json_load_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_posix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['linux']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#json_load_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.json_load_file" title="Permalink to this definition"></a></dt>
+<dd><p>Load JSON endpoint data from a named file and, optionally, a target
+directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> – ZT endpoint name =&gt; filename</p></li>
+<li><p><strong>dirname</strong> – target directory name</p></li>
+<li><p><strong>is_posix</strong> – default is <code class="docutils literal notranslate"><span class="pre">platform_check()</span></code>, force True/False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.load_json">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opener</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.load_json" title="Permalink to this definition"></a></dt>
+<dd><p>Load JSON endpoint data from a file using optional <code class="docutils literal notranslate"><span class="pre">opener</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.name_generator">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">name_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'abcdefghijklmnopqrstuvwxyz0123456789'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#name_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.name_generator" title="Permalink to this definition"></a></dt>
+<dd><p>Generate random ZeroTier network names or other ID strings. Default
+is 2 substrings of <code class="docutils literal notranslate"><span class="pre">size</span></code> with an underscore as separator, eg, if
+<code class="docutils literal notranslate"><span class="pre">size</span></code> is 10, the returned string is 21 characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> – number of chars in each substring</p></li>
+<li><p><strong>chars</strong> – character types used</p></li>
+<li><p><strong>no_sep</strong> – if False, do not use separator, return <code class="docutils literal notranslate"><span class="pre">size</span></code> instead</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return str</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.platform_check">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">platform_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#platform_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.platform_check" title="Permalink to this definition"></a></dt>
+<dd><p>Check to see if we think we are POSIX.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return valid_os</dt>
+<dd class="field-odd"><p>True if POSIX, else False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ztcli_api.utils.pprint">
+<span class="sig-prename descclassname"><span class="pre">ztcli_api.utils.</span></span><span class="sig-name descname"><span class="pre">pprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ztcli_api/utils.html#pprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ztcli_api.utils.pprint" title="Permalink to this definition"></a></dt>
+<dd><p>Pretty printer for JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – JSON obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ztcli_api.html" class="btn btn-neutral float-left" title="ztcli_api package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Stephen L Arnold.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
